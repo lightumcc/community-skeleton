@@ -13,9 +13,12 @@ jobs:
 
     - name: Download and Extract UVDesk
       run: |
-        mkdir uvdesk
         curl -L -o uvdesk.zip https://cdn.uvdesk.com/uvdesk/downloads/opensource/uvdesk-community-current-stable.zip
-        bsdtar -xf uvdesk.zip --strip-components=1 -C uvdesk
+        unzip uvdesk.zip -d tmp_uvdesk
+        mkdir uvdesk
+        rsync -a tmp_uvdesk/*/ uvdesk/
+        rm -rf tmp_uvdesk
+        ls -la uvdesk
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
