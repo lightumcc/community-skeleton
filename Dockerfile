@@ -77,6 +77,7 @@ RUN chown -R uvdesk:uvdesk /var/www/uvdesk && \
     chmod 664 /var/www/uvdesk/.env
 
 # Install Composer dependencies
+RUN sed -i 's/Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle::class =>.*/Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle::class => \[\'dev\' => false, \'test\' => false\],/' /var/www/uvdesk/config/bundles.php || true
 RUN cd /var/www/uvdesk/ && composer install --no-dev --optimize-autoloader
 
 # Set working directory
